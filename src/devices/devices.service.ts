@@ -9,8 +9,9 @@ import { Model } from 'mongoose';
 export class DevicesService {
   constructor(@InjectModel(Device.name) private model: Model<DeviceDocument>) {}
 
-  create(createDeviceDto: CreateDeviceDto) {
-    return 'This action adds a new device';
+  async create(createDeviceDto: CreateDeviceDto): Promise<Device> {
+    const newDevice = new this.model(createDeviceDto);
+    return newDevice.save();
   }
 
   findAll() {
