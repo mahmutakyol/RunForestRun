@@ -14,16 +14,36 @@ export class DevicesService {
     return newDevice.save();
   }
 
-  findAll() {
-    return `This action returns all devices`;
+  async findAll() {
+    return this.model
+      .find({})
+      .then((devices) => ({
+        statusCode: 200,
+        data: devices,
+      }))
+      .catch((err) => ({
+        statusCode: err.statusCode,
+        message: [err.message],
+        error: err,
+      }));
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} device`;
+  async findOne(id: string) {
+    return this.model
+      .find({ where: { _id: id } })
+      .then((devices) => ({
+        statusCode: 200,
+        data: devices,
+      }))
+      .catch((err) => ({
+        statusCode: err.statusCode,
+        message: [err.message],
+        error: err,
+      }));
   }
 
-  update(id: number, updateDeviceDto: UpdateDeviceDto) {
-    return `This action updates a #${id} device`;
+  async update(id: string, updateDeviceDto: UpdateDeviceDto): Promise<Device> {
+    return this.model.findByIdAndUpdate(id, updateDeviceDto, { new: true });
   }
 
   remove(id: number) {
