@@ -2,7 +2,7 @@ import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document, Types } from 'mongoose';
 import { Scenario } from 'src/scenarios/entities/scenario.entity';
 
-export type ScenarioDocument = TestRun & Document;
+export type TestRunDocument = TestRun & Document;
 
 @Schema({ _id: false })
 export class TestRun {

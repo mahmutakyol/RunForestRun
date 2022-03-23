@@ -1,9 +1,14 @@
 import { Injectable } from '@nestjs/common';
+import { InjectModel } from '@nestjs/mongoose';
 import { CreateDeviceDto } from './dto/create-device.dto';
 import { UpdateDeviceDto } from './dto/update-device.dto';
+import { Device, DeviceDocument } from './entities/device.entity';
+import { Model } from 'mongoose';
 
 @Injectable()
 export class DevicesService {
+  constructor(@InjectModel(Device.name) private model: Model<DeviceDocument>) {}
+
   create(createDeviceDto: CreateDeviceDto) {
     return 'This action adds a new device';
   }

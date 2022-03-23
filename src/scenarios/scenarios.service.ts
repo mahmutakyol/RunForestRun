@@ -1,9 +1,16 @@
 import { Injectable } from '@nestjs/common';
+import { InjectModel } from '@nestjs/mongoose';
 import { CreateScenarioDto } from './dto/create-scenario.dto';
 import { UpdateScenarioDto } from './dto/update-scenario.dto';
+import { Scenario, ScenarioDocument } from './entities/scenario.entity';
+import { Model } from 'mongoose';
 
 @Injectable()
 export class ScenariosService {
+  constructor(
+    @InjectModel(Scenario.name) private model: Model<ScenarioDocument>,
+  ) {}
+
   create(createScenarioDto: CreateScenarioDto) {
     return 'This action adds a new scenario';
   }
