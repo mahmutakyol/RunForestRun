@@ -46,7 +46,7 @@ export class DevicesController {
 
   @Delete(':id')
   @HttpCode(204)
-  remove(@Param('id') id: string) {
-    return this.devicesService.remove(+id);
+  async remove(@Param('id') id: string) {
+    return this.devicesService.remove(id);
   }
 }

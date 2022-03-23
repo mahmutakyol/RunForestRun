@@ -46,7 +46,7 @@ export class DevicesService {
     return this.model.findByIdAndUpdate(id, updateDeviceDto, { new: true });
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} device`;
+  remove(id: string) {
+    return this.model.findByIdAndRemove(id);
   }
 }
