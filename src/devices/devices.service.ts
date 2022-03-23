@@ -30,7 +30,7 @@ export class DevicesService {
 
   async findOne(id: string) {
     return this.model
-      .find({ where: { _id: id } })
+      .find({ _id: id })
       .then((devices) => ({
         statusCode: 200,
         data: devices,
