@@ -1,34 +1,54 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Patch,
+  Param,
+  Delete,
+  HttpCode,
+} from '@nestjs/common';
 import { ScenariosService } from './scenarios.service';
 import { CreateScenarioDto } from './dto/create-scenario.dto';
 import { UpdateScenarioDto } from './dto/update-scenario.dto';
+import { Scenario } from './entities/scenario.entity';
 
 @Controller('scenarios')
 export class ScenariosController {
   constructor(private readonly scenariosService: ScenariosService) {}
 
   @Post()
-  create(@Body() createScenarioDto: CreateScenarioDto) {
-    return this.scenariosService.create(createScenarioDto);
+  @HttpCode(201)
+  async create(
+    @Body() createScenarioDto: CreateScenarioDto,
+  ): Promise<Scenario> {
+    return await this.scenariosService.create(createScenarioDto);
   }
 
   @Get()
-  findAll() {
-    return this.scenariosService.findAll();
+  @HttpCode(200)
+  async findAll() {
+    return await this.scenariosService.findAll();
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.scenariosService.findOne(+id);
+  @HttpCode(200)
+  async findOne(@Param('id') id: string) {
+    return await this.scenariosService.findOne(id);
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateScenarioDto: UpdateScenarioDto) {
-    return this.scenariosService.update(+id, updateScenarioDto);
+  @HttpCode(202)
+  async update(
+    @Param('id') id: string,
+    @Body() updateScenarioDto: UpdateScenarioDto,
+  ) {
+    return await this.scenariosService.update(id, updateScenarioDto);
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.scenariosService.remove(+id);
+  @HttpCode(204)
+  async remove(@Param('id') id: string) {
+    return await this.scenariosService.remove(id);
   }
 }

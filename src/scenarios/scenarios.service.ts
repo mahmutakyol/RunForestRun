@@ -31,7 +31,7 @@ export class ScenariosService {
       }));
   }
 
-  async findOne(id: number) {
+  async findOne(id: string) {
     return await this.model
       .find({ _id: id })
       .populate('devices')
@@ -46,13 +46,13 @@ export class ScenariosService {
       }));
   }
 
-  async update(id: number, updateScenarioDto: UpdateScenarioDto) {
+  async update(id: string, updateScenarioDto: UpdateScenarioDto) {
     return await this.model.findByIdAndUpdate(id, updateScenarioDto, {
       new: true,
     });
   }
 
-  async remove(id: number) {
+  async remove(id: string) {
     return await this.model.findByIdAndRemove(id);
   }
 }
