@@ -35,9 +35,9 @@ export class ScenariosService {
     return await this.model
       .find({ _id: id })
       .populate('devices')
-      .then((scenarios) => ({
+      .then((scenario) => ({
         statusCode: 200,
-        data: scenarios,
+        data: scenario,
       }))
       .catch((err) => ({
         statusCode: err.statusCode,

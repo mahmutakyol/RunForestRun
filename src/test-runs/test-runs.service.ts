@@ -10,23 +10,48 @@ export class TestRunsService {
     @InjectModel(TestRun.name) private model: Model<TestRunDocument>,
   ) {}
 
-  create(createTestRunDto: CreateTestRunDto) {
-    return 'This action adds a new testRun';
+  async create(createTestRunDto: CreateTestRunDto) {
+    const newTestRun = new this.model(createTestRunDto);
+    return await newTestRun.save();
   }
 
-  findAll() {
-    return `This action returns all testRuns`;
+  async findAll() {
+    return await this.model
+      .find({})
+      .populate('services')
+      .then((testRuns) => ({
+        statusCode: 200,
+        data: testRuns,
+      }))
+      .catch((err) => ({
+        statusCode: err.statusCode,
+        message: [err.message],
+        error: err,
+      }));
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} testRun`;
+  async findOne(id: string) {
+    return await this.model
+      .find({ _id: id })
+      .populate('scenarios')
+      .then((testRun) => ({
+        statusCode: 200,
+        data: testRun,
+      }))
+      .catch((err) => ({
+        statusCode: err.statusCode,
+        message: [err.message],
+        error: err,
+      }));
   }
 
-  update(id: number, updateTestRunDto: UpdateTestRunDto) {
-    return `This action updates a #${id} testRun`;
+  async update(id: string, updateTestRunDto: UpdateTestRunDto) {
+    return await this.model.findByIdAndUpdate(id, updateTestRunDto, {
+      new: true,
+    });
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} testRun`;
+  async remove(id: string) {
+    return await this.model.findByIdAndDelete(id);
   }
 }
