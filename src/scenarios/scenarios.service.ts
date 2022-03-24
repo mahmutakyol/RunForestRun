@@ -3,7 +3,8 @@ import { InjectModel } from '@nestjs/mongoose';
 import { CreateScenarioDto } from './dto/create-scenario.dto';
 import { UpdateScenarioDto } from './dto/update-scenario.dto';
 import { Scenario, ScenarioDocument } from './entities/scenario.entity';
-import { Model } from 'mongoose';
+import { Model, ObjectId } from 'mongoose';
+import { AddDeviceToScenarioDto } from './dto/add-device-to-scenario.dto';
 
 @Injectable()
 export class ScenariosService {
@@ -50,6 +51,21 @@ export class ScenariosService {
     return await this.model.findByIdAndUpdate(id, updateScenarioDto, {
       new: true,
     });
+  }
+
+  async addDevice(id: string, addDeviceToScenarioDto: AddDeviceToScenarioDto) {
+    return await this.model.findByIdAndUpdate(
+      id,
+      {
+        $push: {
+          devices: addDeviceToScenarioDto.deviceId,
+        },
+      },
+      {
+        new: true,
+        useFindAndModify: false,
+      },
+    );
   }
 
   async remove(id: string) {

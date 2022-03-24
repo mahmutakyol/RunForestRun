@@ -1,4 +1,22 @@
 import { PartialType } from '@nestjs/mapped-types';
+import { ApiProperty } from '@nestjs/swagger';
+import { IsString } from 'class-validator';
 import { CreateDeviceDto } from './create-device.dto';
 
-export class UpdateDeviceDto extends PartialType(CreateDeviceDto) {}
+export class UpdateDeviceDto extends PartialType(CreateDeviceDto) {
+  @IsString()
+  @ApiProperty()
+  name: string;
+
+  @IsString()
+  @ApiProperty()
+  manufacturer: string;
+
+  @IsString()
+  @ApiProperty()
+  model: string;
+
+  @IsString()
+  @ApiProperty()
+  os: string;
+}

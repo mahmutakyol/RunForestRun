@@ -12,6 +12,7 @@ import { TestRunsService } from './test-runs.service';
 import { CreateTestRunDto } from './dto/create-test-run.dto';
 import { UpdateTestRunDto } from './dto/update-test-run.dto';
 import { TestRun } from './entities/test-run.entity';
+import { AddScenarioToTestRunDto } from './dto/add-scenario-to-test-run.dto';
 
 @Controller('test-runs')
 export class TestRunsController {
@@ -40,6 +41,15 @@ export class TestRunsController {
     @Body() updateTestRunDto: UpdateTestRunDto,
   ): Promise<TestRun> {
     return await this.testRunsService.update(id, updateTestRunDto);
+  }
+
+  @Patch(':id/scenarios')
+  @HttpCode(202)
+  async addScenario(
+    @Param('id') id: string,
+    @Body() addScenarioToTestRunDto: AddScenarioToTestRunDto,
+  ) {
+    return await this.testRunsService.addScenario(id, addScenarioToTestRunDto);
   }
 
   @Delete(':id')

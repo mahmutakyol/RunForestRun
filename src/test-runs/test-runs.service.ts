@@ -4,6 +4,7 @@ import { CreateTestRunDto } from './dto/create-test-run.dto';
 import { UpdateTestRunDto } from './dto/update-test-run.dto';
 import { TestRun, TestRunDocument } from './entities/test-run.entity';
 import { Model } from 'mongoose';
+import { AddScenarioToTestRunDto } from './dto/add-scenario-to-test-run.dto';
 @Injectable()
 export class TestRunsService {
   constructor(
@@ -49,6 +50,24 @@ export class TestRunsService {
     return await this.model.findByIdAndUpdate(id, updateTestRunDto, {
       new: true,
     });
+  }
+
+  async addScenario(
+    id: string,
+    addScenarioToTestRunDto: AddScenarioToTestRunDto,
+  ) {
+    return await this.model.findByIdAndUpdate(
+      id,
+      {
+        $push: {
+          scenarios: addScenarioToTestRunDto.scenarioId,
+        },
+      },
+      {
+        new: true,
+        useFindAndModify: false,
+      },
+    );
   }
 
   async remove(id: string) {

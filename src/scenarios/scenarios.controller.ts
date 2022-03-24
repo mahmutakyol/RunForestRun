@@ -12,6 +12,7 @@ import { ScenariosService } from './scenarios.service';
 import { CreateScenarioDto } from './dto/create-scenario.dto';
 import { UpdateScenarioDto } from './dto/update-scenario.dto';
 import { Scenario } from './entities/scenario.entity';
+import { AddDeviceToScenarioDto } from './dto/add-device-to-scenario.dto';
 
 @Controller('scenarios')
 export class ScenariosController {
@@ -45,6 +46,15 @@ export class ScenariosController {
     @Body() updateScenarioDto: UpdateScenarioDto,
   ) {
     return await this.scenariosService.update(id, updateScenarioDto);
+  }
+
+  @Patch(':id/devices')
+  @HttpCode(202)
+  async addDevice(
+    @Param('id') id: string,
+    @Body() addDeviceToScenarioDto: AddDeviceToScenarioDto,
+  ) {
+    return await this.scenariosService.addDevice(id, addDeviceToScenarioDto);
   }
 
   @Delete(':id')
