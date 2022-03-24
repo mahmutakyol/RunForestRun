@@ -18,7 +18,7 @@ export class TestRunsService {
   async findAll() {
     return await this.model
       .find({})
-      .populate('services')
+      .populate('scenarios')
       .then((testRuns) => ({
         statusCode: 200,
         data: testRuns,

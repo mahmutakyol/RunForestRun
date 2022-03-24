@@ -1,6 +1,6 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { ApiProperty, ApiTags } from '@nestjs/swagger';
-import { Document, Types } from 'mongoose';
+import { Document } from 'mongoose';
 
 export type DeviceDocument = Device & Document;
 

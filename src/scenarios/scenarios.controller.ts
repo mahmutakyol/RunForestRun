@@ -22,6 +22,7 @@ export class ScenariosController {
   async create(
     @Body() createScenarioDto: CreateScenarioDto,
   ): Promise<Scenario> {
+    console.log(createScenarioDto);
     return await this.scenariosService.create(createScenarioDto);
   }
 

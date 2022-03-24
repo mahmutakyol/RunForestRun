@@ -5,11 +5,8 @@ import * as mongoose from 'mongoose';
 
 export type ScenarioDocument = Scenario & Document;
 
-@Schema({ _id: false })
+@Schema()
 export class Scenario {
-  @Prop({ type: Types.ObjectId })
-  _id: Types.ObjectId;
-
   @Prop()
   name: string;
 
