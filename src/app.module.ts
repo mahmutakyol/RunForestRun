@@ -6,9 +6,7 @@ import { MongooseModule } from '@nestjs/mongoose';
 
 @Module({
   imports: [
-    // MONGOPASS=QW7wYwtTLzCcfyJh
-    // 'mongodb+srv://mahmutakyol:QW7wYwtTLzCcfyJh@cluster0.triyp.mongodb.net/akbankCase?retryWrites=true&w=majority',
-    MongooseModule.forRoot('mongodb://localhost:27018/akbankcase'),
+    MongooseModule.forRoot('mongodb://mongo:27017/akbankcase'),
     TestRunsModule,
     ScenariosModule,
     DevicesModule,
