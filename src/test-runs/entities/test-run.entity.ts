@@ -4,11 +4,8 @@ import { Scenario } from 'src/scenarios/entities/scenario.entity';
 
 export type TestRunDocument = TestRun & Document;
 
-@Schema({ _id: false })
+@Schema()
 export class TestRun {
-  @Prop({ type: Types.ObjectId })
-  _id: Types.ObjectId;
-
   @Prop({ type: [Types.ObjectId], ref: Scenario.name })
   scenarios: Scenario[];
 

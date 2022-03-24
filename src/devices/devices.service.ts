@@ -11,11 +11,11 @@ export class DevicesService {
 
   async create(createDeviceDto: CreateDeviceDto): Promise<Device> {
     const newDevice = new this.model(createDeviceDto);
-    return newDevice.save();
+    return await newDevice.save();
   }
 
   async findAll() {
-    return this.model
+    return await this.model
       .find({})
       .then((devices) => ({
         statusCode: 200,
@@ -29,7 +29,7 @@ export class DevicesService {
   }
 
   async findOne(id: string) {
-    return this.model
+    return await this.model
       .find({ _id: id })
       .then((devices) => ({
         statusCode: 200,
@@ -43,10 +43,12 @@ export class DevicesService {
   }
 
   async update(id: string, updateDeviceDto: UpdateDeviceDto): Promise<Device> {
-    return this.model.findByIdAndUpdate(id, updateDeviceDto, { new: true });
+    return await this.model.findByIdAndUpdate(id, updateDeviceDto, {
+      new: true,
+    });
   }
 
-  remove(id: string) {
-    return this.model.findByIdAndRemove(id);
+  async remove(id: string) {
+    return await this.model.findByIdAndRemove(id);
   }
 }

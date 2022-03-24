@@ -1,6 +1,7 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Device } from 'src/devices/entities/device.entity';
 import { Document, Types } from 'mongoose';
+import * as mongoose from 'mongoose';
 
 export type ScenarioDocument = Scenario & Document;
 

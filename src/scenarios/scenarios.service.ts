@@ -11,23 +11,48 @@ export class ScenariosService {
     @InjectModel(Scenario.name) private model: Model<ScenarioDocument>,
   ) {}
 
-  create(createScenarioDto: CreateScenarioDto) {
-    return 'This action adds a new scenario';
+  async create(createScenarioDto: CreateScenarioDto): Promise<Scenario> {
+    const newScenario = new this.model(createScenarioDto);
+    return await newScenario.save();
   }
 
-  findAll() {
-    return `This action returns all scenarios`;
+  async findAll() {
+    return await this.model
+      .find({})
+      .populate('devices')
+      .then((scenarios) => ({
+        statusCode: 200,
+        data: scenarios,
+      }))
+      .catch((err) => ({
+        statusCode: err.statusCode,
+        message: [err.message],
+        error: err,
+      }));
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} scenario`;
+  async findOne(id: number) {
+    return await this.model
+      .find({ _id: id })
+      .populate('devices')
+      .then((scenarios) => ({
+        statusCode: 200,
+        data: scenarios,
+      }))
+      .catch((err) => ({
+        statusCode: err.statusCode,
+        message: [err.message],
+        error: err,
+      }));
   }
 
-  update(id: number, updateScenarioDto: UpdateScenarioDto) {
-    return `This action updates a #${id} scenario`;
+  async update(id: number, updateScenarioDto: UpdateScenarioDto) {
+    return await this.model.findByIdAndUpdate(id, updateScenarioDto, {
+      new: true,
+    });
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} scenario`;
+  async remove(id: number) {
+    return await this.model.findByIdAndRemove(id);
   }
 }
